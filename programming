@@ -1,0 +1,93 @@
+class User:
+    # Define the fields and methods for your object here.
+    def __init__(self, name):
+        self.humans = name
+        self.color = []
+        self.eyeball = []
+        self.years = []
+        self.loc = []
+    def addHair(self, hrcolor):
+        self.color.append(hrcolor)
+    def addEyes(self, iris):
+        self.eyeball.append(iris)
+    def addAge(self, old):
+        self.years.append(old)
+    def addState(self, place):
+        self.loc.append(place)
+
+class Network:
+    # Define the fields and methods for your object here.
+    def __init__(self):
+        self.numPeep = 0
+        self.people = []
+    def addUser(self, username):
+        self.numPeep += 1
+        self.people.append(username)
+    #def addConnection(self, conn1, conn2):
+        #idk
+
+def main():
+    # Define the program flow for your user interface here.
+    x=False
+    theNetwork = Network()
+    while x==False:
+        networkAction = input('''
+        What would you like to do?
+        Add a user (u), print users (p),
+        add connections (c), print connections (pc),
+        search for a user (s), quit (q)
+        ''')
+        if networkAction == "u":
+            user = input("What username?")
+            newUser = User(user)
+            color = input("What color is your hair?")
+            newUser.addHair(color)
+            eyeball = input("What color are your eyes?")
+            newUser.addEyes(eyeball)
+            years = input("How old are you?")
+            newUser.addAge(years)
+            loc = input("What state (in the US) or country are you from?")
+            newUser.addState(loc)
+            welcome = input("Would you like to be included in The Network?")
+            if welcome == "yes" or "yeah" or "ya":
+                theNetwork.addUser(user)
+            else:
+                x=False
+        elif networkAction == "p":
+            theNetwork.people.sort()
+            print (theNetwork.people)
+        #elif networkAction == "c"
+            #Program asks user to input another username. Those two will have each other in their list of connections.
+        #elif networkAction == "pc":
+            #print (IDKKKKKK CONNECTIONS?)
+            #Need to know how to create connections and store into a list, then print that list's entries
+        elif networkAction == "s":
+            #Input binary search code so names can be searched
+            searchKey = input("Name of the user you are searching?: ").title()
+            founduser = searchKey
+            found = False
+            firstPoint = 0
+            lastPoint = len(theNetwork.people)-1
+            while found == False and lastPoint - firstPoint != 1:
+                midPoint = int((firstPoint + lastPoint) / 2)
+                print (midPoint)
+                y = theNetwork.people[midPoint]
+                print (y)
+                if searchKey == y:
+                    found = True
+                #issue is that program is searching in the wrong direction...and then does not understand what it is finding
+                elif searchKey > y:
+                    lastPoint = midPoint
+                elif searchKey < y:
+                    firstPoint = midPoint
+            if (found == True):
+                print("Your user has been found!")
+            else:
+                print("Your user does not exist.")
+        else:
+            print("Goodbye suckerrr hahaha!")
+            x = True
+
+# Runs your program.
+if __name__ == '__main__':
+    main()
